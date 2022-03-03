@@ -1,7 +1,7 @@
 encryptedpasswords Plugin for DokuWiki
 
-** WARNING : this updated version use a most recent encrypt system. IT WILL NOT DECRYPT PHRASE ENCRYPTED WITH PREVIOUSLY VERSIONS **
-
+**WARNING : this updated version use a most recent encrypt system. IT WILL NOT DECRYPT PHRASE ENCRYPTED WITH PREVIOUSLY VERSIONS**
+**Encrypted phrase will not be visible in the wiki page but copyed to the clipboard**
 
 This plugin let you store 256 bit AES encrypted passwords in your DokuWiki pages.
 
