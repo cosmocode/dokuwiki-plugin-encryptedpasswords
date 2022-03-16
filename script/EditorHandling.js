@@ -41,7 +41,10 @@ class EditorHandling {
         }
 
         // ask for passphrase
-        const passphrase = window.prompt(LANG.plugins.encryptedpasswords.enterKey);
+        const passphrase = await GUI.prompt(
+            LANG.plugins.encryptedpasswords.enterKey,
+            LANG.plugins.encryptedpasswords.passphrase
+        );
         if (passphrase === null || passphrase === '') return;
 
         // replace
@@ -107,7 +110,10 @@ class EditorHandling {
         e.preventDefault();
 
         // ask for passphrase
-        const passphrase = window.prompt(LANG.plugins.encryptedpasswords.enterKey);
+        const passphrase = await GUI.prompt(
+            LANG.plugins.encryptedpasswords.enterKey,
+            LANG.plugins.encryptedpasswords.passphrase
+        );
         if (passphrase === null || passphrase === '') return;
 
         // replace

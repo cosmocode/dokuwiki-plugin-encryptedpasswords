@@ -60,7 +60,10 @@ class PageHandling {
         const cipher = $element.data('crypted');
 
         if ($element.hasClass('crypted')) {
-            const passphrase = window.prompt(LANG.plugins.encryptedpasswords.enterKey);
+            const passphrase = await GUI.prompt(
+                LANG.plugins.encryptedpasswords.enterKey,
+                LANG.plugins.encryptedpasswords.passphrase
+            );
             if (passphrase === null || passphrase === '') return;
             try {
                 clear = await this.aes.decrypt(cipher, passphrase);
@@ -82,9 +85,12 @@ class PageHandling {
     /**
      * Decrypt and show all passwords in the page
      */
-    showAll() {
+    async showAll() {
         const self = this;
-        const passphrase = window.prompt(LANG.plugins.encryptedpasswords.enterKey);
+        const passphrase = await GUI.prompt(
+            LANG.plugins.encryptedpasswords.enterKey,
+            LANG.plugins.encryptedpasswords.passphrase
+        );
         if (passphrase === null || passphrase === '') return;
 
         jQuery('.encryptedpasswords.crypted').each(function (i, e) {
