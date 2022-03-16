@@ -1,0 +1,34 @@
+.encryptedpasswords {
+    padding: 0 0.2em;
+
+    span {
+        font-family: monospace;
+        white-space: pre;
+    }
+
+    svg {
+        height: 1em;
+        vertical-align: middle;
+        padding: 0 0.2em;
+    }
+
+    &.crypted {
+        &:before {
+            content: attr(data-crypted);
+        }
+
+        > span {
+            display: none;
+        }
+
+        svg:last-of-type {
+            display: none;
+        }
+    }
+
+    &.clear {
+        svg:first-of-type {
+            display: none;
+        }
+    }
+}
