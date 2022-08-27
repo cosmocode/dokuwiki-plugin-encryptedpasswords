@@ -66,7 +66,7 @@ class PageHandling {
             );
             if (passphrase === null || passphrase === '') return;
             try {
-                clear = await this.aes.decrypt(cipher, passphrase);
+                clear = await this.aes.autodecrypt(cipher, passphrase);
             } catch (e) {
                 GUI.toast(LANG.plugins.encryptedpasswords.invalidKey, 'error');
                 return;
