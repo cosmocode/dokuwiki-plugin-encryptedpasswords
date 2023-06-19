@@ -13,7 +13,7 @@ class EditorHandling {
     constructor(aes) {
         this.aes = aes;
 
-        jQuery('#edbtn__save, #edbtn__preview').on('click', this.encryptAllSyntax.bind(this));
+        jQuery(document).on('click', '#edbtn__save, #edbtn__preview', this.encryptAllSyntax.bind(this));
         jQuery(document).on('EncryptedPasswordsToggleEvent', this.decryptAllSyntax.bind(this));
     }
 
