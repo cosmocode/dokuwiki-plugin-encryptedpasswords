@@ -2,6 +2,8 @@
 
 $lang['js']['invalidKey'] = 'Failed to decrypt, wrong passphrase?';
 $lang['js']['enterKey'] = 'Please enter the passphrase:';
+$lang['js']['repeatKey'] = 'Please repeat:';
+$lang['js']['repeatError'] = 'Passphrases do not match!';
 $lang['js']['passphrase'] = 'Passphrase';
 $lang['js']['copyOk'] = 'Copied to clipboard.';
 $lang['js']['copyFail'] = 'Clipboard access failed';

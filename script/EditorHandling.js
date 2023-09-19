@@ -43,7 +43,8 @@ class EditorHandling {
         // ask for passphrase
         const passphrase = await GUI.prompt(
             LANG.plugins.encryptedpasswords.enterKey,
-            LANG.plugins.encryptedpasswords.passphrase
+            LANG.plugins.encryptedpasswords.passphrase,
+            false
         );
         if (passphrase === null || passphrase === '') return;
 
@@ -112,7 +113,8 @@ class EditorHandling {
         // ask for passphrase
         const passphrase = await GUI.prompt(
             LANG.plugins.encryptedpasswords.enterKey,
-            LANG.plugins.encryptedpasswords.passphrase
+            LANG.plugins.encryptedpasswords.passphrase,
+            true
         );
         if (passphrase === null || passphrase === '') return;
 

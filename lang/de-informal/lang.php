@@ -8,6 +8,8 @@ $lang['toolbar_icon_title'] = 'Markiertes Passwort verschlüsseln oder entschlü
 $lang['decrypt'] = 'Entschlüsseln';
 
 $lang['js']['enterKey']    = 'Passwort für die Entschlüsselung:';
+$lang['js']['repeatKey']   = 'Passwort wiederholen:';
+$lang['js']['repeatError'] = 'Die Passwörter stimmen nicht überein!';
 $lang['js']['decrypt']     = 'Entschlüsseln';
 $lang['js']['encrypt']     = 'Verschlüsseln';
 $lang['js']['cancel']      = 'Abbrechen';

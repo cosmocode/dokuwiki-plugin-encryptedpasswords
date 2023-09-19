@@ -24,36 +24,37 @@ class GUI {
      *
      * @param {string} msg
      * @param {string} title
+     * @param {boolean} repeat
      * @return {Promise<string>}
      */
-    static async prompt(msg, title = '') {
+    static async prompt(msg, title = '', repeat = false) {
         return new Promise(function (resolve, reject) {
-            const $dialog = jQuery('<div class="encryptedpasswords-prompt">' +
-                '<p></p>' +
-                '<input type="password">' +
+            const repeatField = repeat ?
+                `<p>${LANG.plugins.encryptedpasswords.repeatKey}</p>` +
+                '<input name="repeat" type="password">' :
+                '';
+            let $dialog = jQuery('<div class="encryptedpasswords-prompt">' +
+                `<p>${msg}</p>` +
+                '<input name="pass" type="password">' +
+                repeatField +
                 '</div>'
             );
-            $dialog.find('p').text(msg);
-            $dialog.find('input')
-                .on('keyup', function (e) {
-                    if (e.keyCode === 27) {
-                        $dialog.find('input').val('');
-                        $dialog.dialog('close');
-                    }
-                    if (e.keyCode === 13) {
-                        $dialog.dialog('close');
-                    }
-                })
-                .attr('placeholder', title)
-            ;
 
             $dialog.dialog({
                 modal: true,
                 title: title,
                 closeOnEscape: true,
                 closeText: LANG.plugins.encryptedpasswords.btn_no,
+                beforeClose: function (event, ui) {
+                    console.log(event);
+                    const pass = $dialog.find("input[name='pass']").val();
+                    if (repeat && pass !== $dialog.find("input[name='repeat']").val()) {
+                        $dialog.prepend(`<p class="error">${LANG.plugins.encryptedpasswords.repeatError}</p>`)
+                        return false;
+                    }
+                },
                 close: function () {
-                    resolve($dialog.find('input').val());
+                    resolve($dialog.find("input[name='pass']").val());
                     jQuery(this).dialog('destroy');
                 },
                 buttons: {
@@ -61,7 +62,8 @@ class GUI {
                         jQuery(this).dialog('close');
                     },
                     [LANG.plugins.encryptedpasswords.btn_no]: function () {
-                        $dialog.find('input').val('');
+                        $dialog.find("input[name='pass']").val('');
+                        $dialog.find("input[name='repeat']").val('');
                         jQuery(this).dialog('close');
                     }
                 }
