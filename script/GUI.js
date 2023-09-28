@@ -49,7 +49,7 @@ class GUI {
                     console.log(event);
                     const pass = $dialog.find("input[name='pass']").val();
                     if (repeat && pass !== $dialog.find("input[name='repeat']").val()) {
-                        $dialog.prepend(`<p class="error">${LANG.plugins.encryptedpasswords.repeatError}</p>`)
+                        $dialog.prepend(`<p class="error">${LANG.plugins.encryptedpasswords.repeatError}</p>`);
                         return false;
                     }
                 },
