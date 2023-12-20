@@ -77,6 +77,7 @@ class PageHandling {
             await navigator.clipboard.writeText(clear);
             GUI.toast(LANG.plugins.encryptedpasswords.copyOk, 'success');
         } catch (e) {
+            console.error(e);
             GUI.toast(LANG.plugins.encryptedpasswords.copyFail, 'error');
         }
 
