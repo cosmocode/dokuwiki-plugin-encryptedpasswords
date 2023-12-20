@@ -1,29 +1,31 @@
 <?php
 
+use dokuwiki\Extension\ActionPlugin;
+use dokuwiki\Extension\EventHandler;
+use dokuwiki\Extension\Event;
+
 /**
  * DokuWiki Plugin encryptedpasswords (Action Component)
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  */
-class action_plugin_encryptedpasswords extends \dokuwiki\Extension\ActionPlugin
+class action_plugin_encryptedpasswords extends ActionPlugin
 {
-
     /** @inheritDoc */
-    public function register(Doku_Event_Handler $controller)
+    public function register(EventHandler $controller)
     {
         $controller->register_hook('DOKUWIKI_STARTED', 'AFTER', $this, 'handleDokuWikiStarted');
         $controller->register_hook('DRAFT_SAVE', 'BEFORE', $this, 'handleDraftSave');
-
     }
 
     /**
      * Add timeout parameter to JSINFO
      *
-     * @param Doku_Event $event event object by reference
+     * @param Event $event event object by reference
      * @param mixed $param optional parameter passed when event was registered
      * @return void
      */
-    public function handleDokuWikiStarted(Doku_Event $event, $param)
+    public function handleDokuWikiStarted(Event $event, $param)
     {
         global $JSINFO;
         $JSINFO['plugins']['encryptedpasswords']['timeout'] = $this->getConf('reload_seconds');
@@ -32,11 +34,11 @@ class action_plugin_encryptedpasswords extends \dokuwiki\Extension\ActionPlugin
     /**
      * Remove any unencrypted passwords from the drafts
      *
-     * @param Doku_Event $event event object by reference
+     * @param Event $event event object by reference
      * @param mixed $param optional parameter passed when event was registered
      * @return void
      */
-    public function handleDraftSave(Doku_Event $event, $param)
+    public function handleDraftSave(Event $event, $param)
     {
         $re = '/<encrypt>.*?(<\/encrypt>)/s';
         $repl = $this->getLang('draftreplace');
@@ -46,4 +48,3 @@ class action_plugin_encryptedpasswords extends \dokuwiki\Extension\ActionPlugin
         $event->data['text'] = preg_replace($re, $repl, $event->data['text']);
     }
 }
-

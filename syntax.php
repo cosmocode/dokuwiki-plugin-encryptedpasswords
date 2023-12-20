@@ -1,11 +1,13 @@
 <?php
 
+use dokuwiki\Extension\SyntaxPlugin;
+
 /**
  * Encrypted Passwords Plugin: Store encrypted passwords with syntax <decrypt></decrypt>
  *
  * @license GPL 2 http://www.gnu.org/licenses/gpl-2.0.html
  */
-class syntax_plugin_encryptedpasswords extends \dokuwiki\Extension\SyntaxPlugin
+class syntax_plugin_encryptedpasswords extends SyntaxPlugin
 {
     /** @inheritDoc */
     public function getType()
@@ -48,4 +50,3 @@ class syntax_plugin_encryptedpasswords extends \dokuwiki\Extension\SyntaxPlugin
         return true;
     }
 }
-
