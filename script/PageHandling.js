@@ -50,31 +50,53 @@ class PageHandling {
     }
 
     /**
+     * Request passphrase from user and decrypt the given cipher.
+     *
+     * @param {String} cipher
+     * @returns {Promise<String>} Decrypted string.
+     */
+    async getPassphraseAndDecrypt(cipher) {
+        const passphrase = await GUI.prompt(
+            LANG.plugins.encryptedpasswords.enterKey,
+            LANG.plugins.encryptedpasswords.passphrase
+        );
+        if (passphrase === null || passphrase === '') {
+            throw new Error('Empty passphrase');
+        }
+
+        try {
+            return await this.aes.autodecrypt(cipher, passphrase);
+        } catch (e) {
+            // Decrypt failed
+            GUI.toast(LANG.plugins.encryptedpasswords.invalidKey, 'error');
+            throw e;
+        }
+    }
+
+    /**
      * Copy a clicked password to clipboard
      *
      * @param {Event} e
      */
-    async copyHandler(e) {
+    copyHandler(e) {
         const $element = jQuery(e.target).parent();
         let clear = $element.find('span').text(); // get early, timer may interfere
         const cipher = $element.data('crypted');
 
         if ($element.hasClass('crypted')) {
-            const passphrase = await GUI.prompt(
-                LANG.plugins.encryptedpasswords.enterKey,
-                LANG.plugins.encryptedpasswords.passphrase
-            );
-            if (passphrase === null || passphrase === '') return;
-            try {
-                clear = await this.aes.autodecrypt(cipher, passphrase);
-            } catch (e) {
-                GUI.toast(LANG.plugins.encryptedpasswords.invalidKey, 'error');
-                return;
-            }
+            clear = this.getPassphraseAndDecrypt(cipher)
+                .catch((err) => {
+                    console.log(err);
+                    throw err;
+                })
+            ;
         }
 
         try {
-            await navigator.clipboard.writeText(clear);
+            const clipboardData = new ClipboardItem({
+                "text/plain": clear,
+            });
+            navigator.clipboard.write([clipboardData]);
             GUI.toast(LANG.plugins.encryptedpasswords.copyOk, 'success');
         } catch (e) {
             console.error(e);
