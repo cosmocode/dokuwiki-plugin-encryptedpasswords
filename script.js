@@ -3,7 +3,7 @@ if (typeof window.toolbar !== 'undefined') {
     toolbar[toolbar.length] = {
         type: 'format',
         title: LANG.plugins.encryptedpasswords.addpass,
-        icon: DOKU_BASE + 'lib/plugins/encryptedpasswords/encrypt.png',
+        icon: '../../plugins/encryptedpasswords/encrypt.png',
         open: '<encrypt>',
         close: '</encrypt>',
         sample: 'password',
@@ -11,7 +11,7 @@ if (typeof window.toolbar !== 'undefined') {
     toolbar[toolbar.length] = {
         type: 'encryptedPasswordsToggle',
         title: LANG.plugins.encryptedpasswords.decryptAll,
-        icon: DOKU_BASE + 'lib/plugins/encryptedpasswords/password.png',
+        icon: '../../plugins/encryptedpasswords/password.png',
     };
 
     // actual click handler is defined in the EditorHandling class later
